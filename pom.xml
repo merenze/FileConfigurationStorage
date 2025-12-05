@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.jellyrekt.storage</groupId>
-    <artifactId>fileconfigurationstorage</artifactId>
-    <version>1.1.0</version>
+    <artifactId>file-configuration-storage</artifactId>
+    <version>1.1.0-rc.1</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
