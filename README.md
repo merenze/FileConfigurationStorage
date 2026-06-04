@@ -1,5 +1,7 @@
 # FileConfigurationStorage
 
+[![javadoc](https://javadoc.io/badge2/com.jellyrekt.storage/file-configuration-storage/1.1.0/javadoc.svg)](https://javadoc.io/doc/com.jellyrekt.storage/file-configuration-storage/1.1.0)
+
 Provides a standard API and abstraction library over Bukkit's FileConfiguration.
 
 ## Usage
