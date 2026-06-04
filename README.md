@@ -1,5 +1,6 @@
 # FileConfigurationStorage
 
+[![Maven Central](https://img.shields.io/maven-central/v/com.jellyrekt.storage/file-configuration-storage)](https://central.sonatype.com/artifact/com.jellyrekt.storage/file-configuration-storage) 
 [![javadoc](https://javadoc.io/badge2/com.jellyrekt.storage/file-configuration-storage/1.1.0/javadoc.svg)](https://javadoc.io/doc/com.jellyrekt.storage/file-configuration-storage/1.1.0)
 
 Provides a standard API and abstraction library over Bukkit's FileConfiguration.
