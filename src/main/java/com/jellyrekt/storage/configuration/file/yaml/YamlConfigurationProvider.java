@@ -17,6 +17,7 @@ public class YamlConfigurationProvider implements FileConfigurationProvider {
         reload();
     }
 
+    @Override
     public FileConfiguration getFileConfiguration() {
         return config;
     }
