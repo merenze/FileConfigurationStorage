@@ -1,5 +1,6 @@
 package com.jellyrekt.storage.configuration.file;
 
+import java.io.IOException;
 import java.util.function.Consumer;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -24,5 +25,9 @@ public abstract class FileConfigurationStorage {
 
     public void setChangeListener(Consumer<FileConfigurationStorage> changeListener) {
         this.changeListener = changeListener;
+    }
+
+    public void save() throws IOException {
+        configurationProvider.save();
     }
 }
