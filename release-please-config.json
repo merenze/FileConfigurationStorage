@@ -2,7 +2,11 @@
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
   "release-type": "maven",
   "packages": {
-    "file-configuration-storage": {},
-    "file-configuration-storage-test": {}
+    "file-configuration-storage": {
+      "tag-name": "file-configuration-storage/v${version}"
+    },
+    "file-configuration-storage-test": {
+      "tag-name": "file-configuration-storage-test/v${version}"
+    }
   }
 }
