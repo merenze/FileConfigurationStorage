@@ -32,40 +32,21 @@ jobs:
         with:
           ref: ${{ needs.release-please.outputs.tag_name }}
 
-      - name: Set up Java with GPG
+      - name: Set up Java with GPG and Central credentials
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: temurin
+          server-id: central
+          server-username: CENTRAL_USERNAME
+          server-password: CENTRAL_PASSWORD
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: GPG_PASSPHRASE
+        env:
+          CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+          CENTRAL_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
 
-      - name: Configure Maven settings
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const os = require('os');
-            const path = require('path');
-            const m2Dir = path.join(os.homedir(), '.m2');
-            fs.mkdirSync(m2Dir, { recursive: true });
-            const settings = `<settings>
-              <servers>
-                <server>
-                  <id>central</id>
-                  <username>${{ secrets.CENTRAL_USERNAME }}</username>
-                  <password>${{ secrets.CENTRAL_PASSWORD }}</password>
-                </server>
-                <server>
-                  <id>github</id>
-                  <username>${{ github.actor }}</username>
-                  <password>${{ secrets.GITHUB_TOKEN }}</password>
-                </server>
-              </servers>
-            </settings>`;
-            fs.writeFileSync(path.join(m2Dir, 'settings.xml'), settings);
-
-      - name: Publish to Maven Central and GitHub Packages
+      - name: Publish to Maven Central
         env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: mvn --batch-mode deploy -P release
