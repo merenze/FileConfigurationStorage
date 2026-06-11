@@ -136,3 +136,5 @@ public class EconomyConfig {
 ```
 
 In tests, supply a fake provider that returns a pre-populated `YamlConfiguration` without touching the file system. In production, supply a `JavaPluginConfigurationProvider` or a `YamlConfigurationProvider` pointed at the appropriate file.
+
+See [file-configuration-storage-test](file-configuration-storage-test/README.md) for ready-made test utilities including `StringYamlConfigurationProvider`.
