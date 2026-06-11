@@ -1,13 +1,9 @@
-package com.jellyrekt.storage.fileconfiguration;
+package com.jellyrekt.storage.configuration.file;
 
 import java.io.IOException;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-/**
- * @deprecated Use {@link com.jellyrekt.storage.configuration.file.FileConfigurationProvider} instead.
- */
-@Deprecated(since = "1.2.0", forRemoval = true)
 public interface FileConfigurationProvider {
     FileConfiguration getFileConfiguration();
 

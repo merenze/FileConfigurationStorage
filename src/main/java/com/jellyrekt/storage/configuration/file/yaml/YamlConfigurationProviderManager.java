@@ -1,4 +1,4 @@
-package com.jellyrekt.storage.fileconfiguration.yaml;
+package com.jellyrekt.storage.configuration.file.yaml;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,13 +8,9 @@ import java.util.Optional;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-import com.jellyrekt.storage.fileconfiguration.FileConfigurationProvider;
-import com.jellyrekt.storage.fileconfiguration.FileConfigurationProviderManager;
+import com.jellyrekt.storage.configuration.file.FileConfigurationProvider;
+import com.jellyrekt.storage.configuration.file.FileConfigurationProviderManager;
 
-/**
- * @deprecated Use {@link com.jellyrekt.storage.configuration.file.yaml.YamlConfigurationProviderManager} instead.
- */
-@Deprecated(since = "1.2.0", forRemoval = true)
 public class YamlConfigurationProviderManager implements FileConfigurationProviderManager {
     private final Map<String, FileConfigurationProvider> configProviders = new HashMap<>();
 
