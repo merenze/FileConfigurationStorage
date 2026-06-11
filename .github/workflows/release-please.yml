@@ -1,0 +1,71 @@
+name: Release Please
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+  packages: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.release-please.outputs.tag_name }}
+
+      - name: Set up Java with GPG
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: temurin
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg-passphrase: GPG_PASSPHRASE
+
+      - name: Configure Maven settings
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const os = require('os');
+            const path = require('path');
+            const m2Dir = path.join(os.homedir(), '.m2');
+            fs.mkdirSync(m2Dir, { recursive: true });
+            const settings = `<settings>
+              <servers>
+                <server>
+                  <id>central</id>
+                  <username>${{ secrets.CENTRAL_USERNAME }}</username>
+                  <password>${{ secrets.CENTRAL_PASSWORD }}</password>
+                </server>
+                <server>
+                  <id>github</id>
+                  <username>${{ github.actor }}</username>
+                  <password>${{ secrets.GITHUB_TOKEN }}</password>
+                </server>
+              </servers>
+            </settings>`;
+            fs.writeFileSync(path.join(m2Dir, 'settings.xml'), settings);
+
+      - name: Publish to Maven Central and GitHub Packages
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: mvn --batch-mode deploy -P release
