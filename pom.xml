@@ -61,11 +61,6 @@
                 <version>1.16.1-R0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.jellyrekt.storage</groupId>
-                <artifactId>file-configuration-storage</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter</artifactId>
                 <version>5.11.4</version>

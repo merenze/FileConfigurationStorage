@@ -4,6 +4,10 @@ on:
   push:
     branches-ignore:
       - main
+    paths:
+      - 'file-configuration-storage/**'
+      - 'file-configuration-storage-test/**'
+      - 'pom.xml'
 
 permissions:
   packages: write
@@ -13,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -36,7 +42,41 @@ jobs:
             -DgenerateBackupPoms=false \
             -DprocessAllModules=true
 
-      - name: Build and publish snapshot
+      - name: Detect changed modules
+        id: changes
+        run: |
+          BEFORE="${{ github.event.before }}"
+          if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            BEFORE=$(git rev-parse HEAD~1 2>/dev/null || echo "")
+          fi
+          if [ -n "$BEFORE" ]; then
+            git diff --name-only "$BEFORE" "${{ github.sha }}" > /tmp/changed.txt
+          else
+            git show --name-only --format="" HEAD > /tmp/changed.txt
+          fi
+          if grep -qE "^(file-configuration-storage/|pom\.xml)" /tmp/changed.txt; then
+            echo "core=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "core=false" >> "$GITHUB_OUTPUT"
+          fi
+          if grep -qE "^(file-configuration-storage-test/|pom\.xml)" /tmp/changed.txt; then
+            echo "test=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "test=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Deploy core snapshot
+        if: steps.changes.outputs.core == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: mvn --batch-mode deploy
+        run: mvn --batch-mode deploy -pl file-configuration-storage
+
+      - name: Install core (dependency for test module)
+        if: steps.changes.outputs.test == 'true' && steps.changes.outputs.core != 'true'
+        run: mvn --batch-mode install -pl file-configuration-storage -DskipTests
+
+      - name: Deploy test snapshot
+        if: steps.changes.outputs.test == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: mvn --batch-mode deploy -pl file-configuration-storage-test
