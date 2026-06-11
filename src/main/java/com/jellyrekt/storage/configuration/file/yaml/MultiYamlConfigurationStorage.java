@@ -1,4 +1,4 @@
-package com.jellyrekt.storage.fileconfiguration.yaml;
+package com.jellyrekt.storage.configuration.file.yaml;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -6,10 +6,6 @@ import java.util.function.Consumer;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-/**
- * @deprecated Use {@link com.jellyrekt.storage.configuration.file.yaml.MultiYamlConfigurationStorage} instead.
- */
-@Deprecated(since = "1.2.0", forRemoval = true)
 public class MultiYamlConfigurationStorage {
     private final Optional<Consumer<MultiYamlConfigurationStorage>> changeListener = Optional.empty();
     

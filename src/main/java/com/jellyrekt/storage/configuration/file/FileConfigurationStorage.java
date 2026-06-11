@@ -1,13 +1,9 @@
-package com.jellyrekt.storage.fileconfiguration;
+package com.jellyrekt.storage.configuration.file;
 
 import java.util.function.Consumer;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-/**
- * @deprecated Use {@link com.jellyrekt.storage.configuration.file.FileConfigurationStorage} instead.
- */
-@Deprecated(since = "1.2.0", forRemoval = true)
 public abstract class FileConfigurationStorage {
     private final FileConfigurationProvider configurationProvider;
     private Consumer<FileConfigurationStorage> changeListener;
