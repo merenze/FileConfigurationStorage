@@ -19,6 +19,9 @@ jobs:
         with:
           java-version: '17'
           distribution: temurin
+          server-id: github
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
 
       - name: Resolve snapshot version
         id: version
@@ -31,26 +34,6 @@ jobs:
           mvn --batch-mode versions:set \
             -DnewVersion=${{ steps.version.outputs.snapshot_version }} \
             -DgenerateBackupPoms=false
-
-      - name: Configure Maven settings
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const os = require('os');
-            const path = require('path');
-            const m2Dir = path.join(os.homedir(), '.m2');
-            fs.mkdirSync(m2Dir, { recursive: true });
-            const settings = `<settings>
-              <servers>
-                <server>
-                  <id>github</id>
-                  <username>${{ github.actor }}</username>
-                  <password>${{ secrets.GITHUB_TOKEN }}</password>
-                </server>
-              </servers>
-            </settings>`;
-            fs.writeFileSync(path.join(m2Dir, 'settings.xml'), settings);
 
       - name: Build and publish snapshot
         run: mvn --batch-mode deploy
