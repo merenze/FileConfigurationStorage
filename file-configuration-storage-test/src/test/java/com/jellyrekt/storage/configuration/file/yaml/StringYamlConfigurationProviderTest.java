@@ -3,6 +3,7 @@ package com.jellyrekt.storage.configuration.file.yaml;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -42,5 +43,11 @@ class StringYamlConfigurationProviderTest {
         var provider = new StringYamlConfigurationProvider(YAML);
 
         assertNotNull(provider.getFileConfiguration());
+    }
+
+    @Test
+    void constructor_withInvalidYaml_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () ->
+            new StringYamlConfigurationProvider("key: [unclosed"));
     }
 }
