@@ -13,7 +13,7 @@ Add the following dependency to the `dependencies` section in your POM:
 <dependency>
   <groupId>com.jellyrekt.storage</groupId>
   <artifactId>file-configuration-storage</artifactId>
-  <version>1.1.0</version>
+  <version>1.2.0</version>
 </dependency>
 ```
 
