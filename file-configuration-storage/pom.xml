@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.jellyrekt.storage</groupId>
         <artifactId>file-configuration-storage-parent</artifactId>
-        <version>1.1.0</version>
+        <version>0.0.0</version>
     </parent>
 
     <artifactId>file-configuration-storage</artifactId>
