@@ -49,6 +49,9 @@ jobs:
           if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
             BEFORE=$(git rev-parse HEAD~1 2>/dev/null || echo "")
           fi
+          if [ -n "$BEFORE" ] && ! git cat-file -e "$BEFORE" 2>/dev/null; then
+            BEFORE=""
+          fi
           if [ -n "$BEFORE" ]; then
             git diff --name-only "$BEFORE" "${{ github.sha }}" > /tmp/changed.txt
           else
