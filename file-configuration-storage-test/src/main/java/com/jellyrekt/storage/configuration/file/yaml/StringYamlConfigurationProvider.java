@@ -6,7 +6,7 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import com.jellyrekt.storage.configuration.file.FileConfigurationProvider;
+import com.jellyrekt.storage.fileconfiguration.FileConfigurationProvider;
 
 /**
  * A {@link FileConfigurationProvider} backed by a YAML string rather than a file.
