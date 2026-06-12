@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>file-configuration-storage</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
 
     <name>File Configuration Storage</name>
     <description>Lightweight file configuration storage library for Spigot plugins</description>
