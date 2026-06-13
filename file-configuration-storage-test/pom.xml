@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>file-configuration-storage-test</artifactId>
-    <version>1.1.0</version>
+    <version>1.0.0</version>
 
     <name>File Configuration Storage Test Utilities</name>
     <description>Test utilities for the File Configuration Storage library</description>
@@ -18,11 +18,12 @@
         <dependency>
             <groupId>com.jellyrekt.storage</groupId>
             <artifactId>file-configuration-storage</artifactId>
-            <version>1.1.0</version>
+            <version>1.2.0</version>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
+            <version>1.16.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
