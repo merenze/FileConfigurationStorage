@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>file-configuration-storage-test</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <name>File Configuration Storage Test Utilities</name>
     <description>Test utilities for the File Configuration Storage library</description>
